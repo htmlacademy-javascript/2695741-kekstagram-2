@@ -4,11 +4,13 @@ import {drawPictureCards} from './picture-cards.js';
 import {showPicturesLoadError} from './messages.js';
 import {initUploadEditor} from './upload-editor.js';
 import {initUploadEffects} from './upload-effects.js';
+import {initUploadForm} from './upload-form.js';
 import {initUploadScale} from './upload-scale.js';
 
 initUploadScale();
 initUploadEffects();
 initUploadEditor();
+initUploadForm();
 
 loadPictures()
   .then((pictures) => {

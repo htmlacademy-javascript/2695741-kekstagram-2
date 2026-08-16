@@ -18,6 +18,8 @@ let previewUrl;
 
 const isTextFieldFocused = () => document.activeElement === hashtagsElement || document.activeElement === descriptionElement;
 
+const isUploadMessageOpened = () => Boolean(document.querySelector('.error, .success'));
+
 const setPreviewImage = (src) => {
   uploadPreviewImageElement.src = src;
   effectPreviewElements.forEach((preview) => {
@@ -39,6 +41,7 @@ const resetUploadEditor = () => {
   resetUploadEffect();
   clearPreviewUrl();
   setPreviewImage(DEFAULT_PREVIEW);
+  uploadFormElement.dispatchEvent(new Event('upload-editor-reset'));
 };
 
 const closeUploadEditor = () => {
@@ -49,7 +52,7 @@ const closeUploadEditor = () => {
 };
 
 function onDocumentKeydown(evt) {
-  if (isEscEvent(evt) && !isTextFieldFocused()) {
+  if (isEscEvent(evt) && !isTextFieldFocused() && !isUploadMessageOpened()) {
     evt.preventDefault();
     closeUploadEditor();
   }
