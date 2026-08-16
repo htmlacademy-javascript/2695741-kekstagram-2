@@ -68,25 +68,28 @@ const showSelectedPicture = () => {
   const file = uploadFileElement.files[0];
 
   if (!file) {
-    return;
+    return false;
   }
 
   const fileName = file.name.toLowerCase();
   const isValidFile = FILE_TYPES.some((type) => fileName.endsWith(type));
 
   if (!isValidFile) {
-    return;
+    return false;
   }
 
   clearPreviewUrl();
   previewUrl = URL.createObjectURL(file);
   setPreviewImage(previewUrl);
+
+  return true;
 };
 
 const initUploadEditor = () => {
   uploadFileElement.addEventListener('change', () => {
-    showSelectedPicture();
-    openUploadEditor();
+    if (showSelectedPicture()) {
+      openUploadEditor();
+    }
   });
 
   uploadCancelElement.addEventListener('click', (evt) => {
